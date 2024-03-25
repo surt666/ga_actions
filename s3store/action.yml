@@ -1,0 +1,19 @@
+name: s3store
+
+inputs:
+  source: 
+    required: true
+  destination:
+    required: true
+  gh_repo:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+  - name: s3 store
+    shell: bash
+    run: |
+      cd /mnt/efs/${{ inputs.gh_repo }}
+      aws s3 cp ${{ inputs.source }} ${{ inputs.destination }}.${{ github.run_number }}
+      rm -f ${{ inputs.source }}

@@ -1,0 +1,24 @@
+name: s3store
+
+inputs:
+  source: 
+    required: true
+  destination:
+    required: true
+  gh_repo:
+    required: true
+  run_nr:
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+  - name: s3 retrieve
+    shell: bash
+    run: |
+      cd /mnt/efs/${{ inputs.gh_repo }}
+      if [[ -z ${{ inputs.run_nr }} ]]; then
+        aws s3 cp ${{ inputs.source }}.${{ github.run_number }} ${{ inputs.destination }} 
+      else
+        aws s3 cp ${{ inputs.source }}.${{ inputs.run_nr }} ${{ inputs.destination }} 
+      fi

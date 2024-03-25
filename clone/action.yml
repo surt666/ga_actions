@@ -1,0 +1,27 @@
+name: clone
+
+inputs:
+  gh_user: 
+    required: true
+  gh_token:
+    required: true
+  gh_org:
+    required: true
+  gh_repo:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+  - name: git clone
+    shell: bash
+    run: |
+      cd /mnt/efs 
+      if [[ ! -f "pull.${{ github.sha }}" ]]; then
+        touch "pull.${{ github.sha }}"
+        chmod 777 "pull.${{ github.sha }}"
+        git clone https://${{ inputs.gh_user }}:${{ inputs.gh_token }}@github.com/${{ inputs.gh_org }}/${{ inputs.gh_repo }}
+        echo "CLONE"
+      else 
+        echo "NO CLONE"
+      fi

@@ -1,0 +1,38 @@
+name: pull
+
+inputs:
+  gh_user: 
+    required: true
+  gh_token:
+    required: true
+  gh_org:
+    required: true
+  gh_repo:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+  - name: git pull
+    continue-on-error: true
+    shell: bash
+    run: |
+      set -x
+      cd /mnt/efs/${{ inputs.gh_repo }}       
+      git config --global --add safe.directory /mnt/efs/${{ inputs.gh_repo }}
+      git config pull.rebase false
+      git remote set-url origin https://${{ inputs.gh_user }}:${{ inputs.gh_token }}@github.com/${{ inputs.gh_org }}/${{ inputs.gh_repo }}.git
+      git status --porcelain 1>&2
+      if [ $(git status --porcelain |  grep -v '??'  | wc -l) -eq 0 ]; then
+        echo "PULL" 1>&2
+        git pull
+      fi
+      if [ $(git status --porcelain | grep 'D' | wc -l) -gt 0 ]; then
+        echo "RESET PULL" 1>&2
+        git reset --hard origin/master
+        git pull
+      fi
+      echo "END PULL" 1>&2
+
+  
+
