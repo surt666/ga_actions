@@ -16,6 +16,6 @@ runs:
   - name: s3 store
     shell: bash
     run: |
-      cd ${{ inputs.repo_dir }}/${{ inputs.gh_repo }}
+      #  cd ${{ inputs.repo_dir }}/${{ inputs.gh_repo }}
       aws s3 cp ${{ inputs.source }} ${{ inputs.destination }}.${{ github.run_number }}
       rm -f ${{ inputs.source }}
