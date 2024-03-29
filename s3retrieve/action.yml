@@ -19,6 +19,7 @@ runs:
     shell: bash
     run: |
       #  cd ${{ inputs.repo_dir }}/${{ inputs.gh_repo }}
+      mkdir -p $(dirname ${{ inputs.destination }})
       if [[ -z ${{ inputs.run_nr }} ]]; then
         aws s3 cp ${{ inputs.source }}.${{ github.run_number }} ${{ inputs.destination }} 
       else
