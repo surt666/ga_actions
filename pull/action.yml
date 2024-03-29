@@ -29,7 +29,7 @@ runs:
       fi
       if [ $(git status --porcelain | grep 'D' | wc -l) -gt 0 ]; then
         echo "RESET PULL" 1>&2
-        git reset --hard origin/master
+        git reset --hard origin/main
         git pull
       fi
       echo "END PULL" 1>&2
