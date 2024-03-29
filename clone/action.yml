@@ -20,8 +20,7 @@ runs:
       if [[ ! -f "pull.${{ github.sha }}" ]]; then
         touch "pull.${{ github.sha }}"
         chmod 777 "pull.${{ github.sha }}"
-        git clone https://${{ inputs.gh_token }}:x-oauth-basic@github.com/${{ inputs.gh_org }}/${{ inputs.gh_repo }}
-        #  git clone https://${{ inputs.gh_user }}:${{ inputs.gh_token }}@github.com/${{ inputs.gh_org }}/${{ inputs.gh_repo }}
+        git clone https://${{ inputs.gh_user }}:${{ inputs.gh_token }}@github.com/${{ inputs.gh_org }}/${{ inputs.gh_repo }}
         echo "CLONE"
       else 
         echo "NO CLONE"
