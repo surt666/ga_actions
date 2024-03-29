@@ -18,7 +18,7 @@ runs:
   - name: s3 retrieve
     shell: bash
     run: |
-      cd ${{ inputs.repo_dir }}/${{ inputs.gh_repo }}
+      #  cd ${{ inputs.repo_dir }}/${{ inputs.gh_repo }}
       if [[ -z ${{ inputs.run_nr }} ]]; then
         aws s3 cp ${{ inputs.source }}.${{ github.run_number }} ${{ inputs.destination }} 
       else
