@@ -32,7 +32,7 @@ runs:
       files: "${{ inputs.code_dir }}/${{ inputs.gh_repo }}" 
   - name: pull repo
     if: ${{ steps.check_files.outputs.files_exists == 'true' && (inputs.git == true || env.GIT == 'true') }}
-    uses: KeyCore/ga_actions/pull@master
+    uses: surt666/ga_actions/pull@master
     with:
       gh_user: ${{ inputs.gh_user }}
       gh_token: ${{ inputs.gh_token }}     
@@ -40,7 +40,7 @@ runs:
       gh_repo: ${{ inputs.gh_repo }} 
   - name: clone repo
     if: ${{ steps.check_files.outputs.files_exists == 'false' && (inputs.git == true || env.GIT == 'true') }}
-    uses: KeyCore/ga_actions/clone@master
+    uses: surt666/ga_actions/clone@master
     with:
       gh_user: ${{ inputs.gh_user }}
       gh_token: ${{ inputs.gh_token }}     
